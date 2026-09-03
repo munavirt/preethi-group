@@ -33,9 +33,9 @@ export function ContactSection() {
             </Reveal>
 
             <Reveal className="mt-10 space-y-3" delay={0.1}>
-              <p className="text-base text-foreground">{groupContact.email}</p>
+              <p className="text-base text-foreground">{groupContact.generalEmail}</p>
               <p className="text-base text-foreground">{groupContact.phone}</p>
-              <p className="text-base text-muted-foreground">{groupContact.address}</p>
+              <p className="text-base text-muted-foreground">{groupContact.location}</p>
             </Reveal>
           </div>
 

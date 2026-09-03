@@ -60,9 +60,9 @@ export function Footer() {
               Contact
             </h3>
             <ul className="mt-5 space-y-3 text-sm text-foreground">
-              <li>{groupContact.email}</li>
+              <li>{groupContact.generalEmail}</li>
               <li>{groupContact.phone}</li>
-              <li className="text-muted-foreground">{groupContact.address}</li>
+              <li className="text-muted-foreground">{groupContact.location}</li>
             </ul>
           </div>
         </div>

@@ -84,7 +84,7 @@ export function StoryTimeline() {
   // Track scroll progress through the entire timeline container
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end bottom"]
+    offset: ["start center", "end end"]
   });
 
   // Smooth the progress line
