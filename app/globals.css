@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 12%;
+    --primary: 0 0% 12%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 30 20% 96%;
+    --secondary-foreground: 0 0% 12%;
+    --muted: 30 14% 95%;
+    --muted-foreground: 0 0% 42%;
+    --accent: 0 0% 12%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 90%;
+    --input: 0 0% 88%;
+    --ring: 0 0% 12%;
+    --radius: 0.25rem;
+
+    --brand-red: 358 75% 48%;
+    --brand-red-foreground: 0 0% 100%;
+    --brand-ink: 0 0% 12%;
+    --brand-cream: 40 30% 97%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: 'ss01', 'cv01';
+  }
+  ::selection {
+    background-color: hsl(var(--brand-red) / 0.15);
+    color: hsl(var(--brand-ink));
+  }
+}
+
+@layer components {
+  .site-container {
+    @apply mx-auto w-full max-w-site px-5 sm:px-8 lg:px-12;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.22em] text-brand-red;
+  }
+
+  .section-label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground;
+  }
+
+  .link-arrow {
+    @apply inline-flex items-center gap-2 text-sm font-semibold tracking-wide transition-colors duration-200;
+  }
+  .link-arrow svg {
+    @apply transition-transform duration-200;
+  }
+  .link-arrow:hover svg {
+    @apply translate-x-1;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
