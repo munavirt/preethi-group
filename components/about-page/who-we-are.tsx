@@ -14,22 +14,18 @@ export function WhoWeAre() {
           {/* Left Column - Large Statement */}
           <div className="lg:col-span-6">
             <Reveal as="h2" className="font-serif text-balance text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              A group with a simple belief.
+              A group of businesses, connected by a common foundation.
             </Reveal>
           </div>
 
           {/* Right Column - Paragraphs */}
           <div className="flex flex-col justify-end lg:col-span-6 lg:pt-2">
             <Reveal as="p" className="max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-              We believe lasting businesses are built on more than growth alone. They are built on trust, strong relationships and a genuine understanding of the people they serve.
+              Preethi Group unites multiple businesses across retail and fashion under a shared philosophy. While each brand maintains its own unique identity and market presence, they are all guided by the same core principles.
             </Reveal>
             
             <Reveal as="p" className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg" delay={0.1}>
-              Preethi Group brings together businesses that share this approach — each with its own identity, while connected by a common commitment to quality, people and long-term growth.
-            </Reveal>
-            
-            <Reveal as="p" className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg" delay={0.2}>
-              As the group continues to grow, our focus remains simple: build thoughtfully, serve responsibly and create something that lasts.
+              We believe in taking a long-term view. This means building thoughtfully, respecting the foundations we've established, and continuously evolving to better support the communities we operate in.
             </Reveal>
           </div>
         </div>

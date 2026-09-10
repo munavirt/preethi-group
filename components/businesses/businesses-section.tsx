@@ -33,7 +33,7 @@ export function BusinessesSection() {
               >
                 {/* Text */}
                 <Stagger
-                  className={textLeft ? 'md:col-span-5 md:order-1' : 'md:col-span-5 md:order-2 md:col-start-8'}
+                  className={textLeft ? 'md:col-span-5 md:order-1' : 'md:col-span-5 md:order-2 md:col-start-8 md:pl-8 lg:pl-12'}
                   delay={0.05}
                 >
                   <StaggerItem as="span" className="block font-serif text-5xl font-medium text-brand-red md:text-6xl">
@@ -45,6 +45,20 @@ export function BusinessesSection() {
                   <StaggerItem as="p" className="mt-3 text-sm font-medium uppercase tracking-[0.12em] text-muted-foreground">
                     {biz.tagline}
                   </StaggerItem>
+
+                  {/* Mobile Image */}
+                  <StaggerItem className="mt-8 mb-2 block md:hidden">
+                    <div className="group relative aspect-[5/4] w-full overflow-hidden rounded-2xl bg-muted">
+                      <Image
+                        src={biz.image}
+                        alt={biz.imageAlt}
+                        fill
+                        sizes="100vw"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                      />
+                    </div>
+                  </StaggerItem>
+
                   <StaggerItem as="p" className="mt-6 max-w-md text-pretty text-base leading-relaxed text-muted-foreground">
                     {biz.description}
                   </StaggerItem>
@@ -58,9 +72,9 @@ export function BusinessesSection() {
                   </StaggerItem>
                 </Stagger>
 
-                {/* Image */}
+                {/* Desktop Image */}
                 <Reveal
-                  className={textLeft ? 'md:col-span-7 md:order-2' : 'md:col-span-6 md:order-1 md:col-start-1'}
+                  className={textLeft ? 'hidden md:block md:col-span-7 md:order-2' : 'hidden md:block md:col-span-7 md:order-1'}
                 >
                   <div className="group relative aspect-[5/4] w-full overflow-hidden rounded-2xl bg-muted">
                     <Image

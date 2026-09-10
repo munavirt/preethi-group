@@ -47,7 +47,7 @@ export function BusinessesHero() {
             className="mt-8 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground sm:text-xl md:mt-10"
             variants={reduce ? undefined : item}
           >
-            Preethi Group brings together established businesses with distinct identities, connected by a shared commitment to people, trust and long-term growth.
+            Preethi Group brings together established businesses with distinct identities, connected by a shared foundation.
           </motion.p>
         </motion.div>
       </div>

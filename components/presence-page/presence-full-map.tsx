@@ -221,14 +221,14 @@ export function PresenceFullMap() {
     return (
         <section className="bg-background py-16 md:py-24 border-b border-border overflow-hidden">
             <div className="site-container relative w-full" ref={containerRef}>
-                
+
                 {/* Desktop View: Combined Map */}
                 <div className="hidden md:block">
                     <svg viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`} className="w-full" style={{ display: 'block' }}>
                         <MapDefs />
                         <UaeMapGroup />
                         <MalabarMapGroup />
-                        
+
                         {connectionPath && (
                             <motion.path
                                 d={connectionPath}

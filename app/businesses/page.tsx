@@ -2,11 +2,10 @@ import { Navbar } from '@/components/navbar/navbar';
 import { Footer } from '@/components/footer/footer';
 import { BusinessesHero } from '@/components/businesses-page/businesses-hero';
 import { BusinessesIntro } from '@/components/businesses-page/businesses-intro';
-import { PreethiSilksSection } from '@/components/businesses-page/preethi-silks-section';
-import { CalicutFashionSection } from '@/components/businesses-page/calicut-fashion-section';
+import { BusinessDetailSection } from '@/components/businesses-page/business-detail-section';
 import { SharedFoundation } from '@/components/businesses-page/shared-foundation';
-import { BusinessesLookingAhead } from '@/components/businesses-page/businesses-looking-ahead';
 import { BusinessesCta } from '@/components/businesses-page/businesses-cta';
+import { businesses } from '@/lib/data/businesses';
 
 export const metadata = {
   title: 'Our Businesses | Preethi Group',
@@ -20,10 +19,10 @@ export default function BusinessesPage() {
       <main>
         <BusinessesHero />
         <BusinessesIntro />
-        <PreethiSilksSection />
-        <CalicutFashionSection />
+        {businesses.map((business, index) => (
+          <BusinessDetailSection key={business.number} business={business} index={index} />
+        ))}
         <SharedFoundation />
-        <BusinessesLookingAhead />
         <BusinessesCta />
       </main>
       <Footer />

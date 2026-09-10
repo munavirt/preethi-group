@@ -7,6 +7,7 @@ export type PresenceLocation = {
   type: LocationType;
   region: LocationRegion;
   coordinates: [number, number]; // [longitude, latitude]
+  mapUrl?: string;
 };
 
 export const presenceLocations: PresenceLocation[] = [

@@ -10,15 +10,11 @@ export function LookingAhead() {
           Looking Ahead
         </Reveal>
         <Reveal as="h2" className="font-serif text-5xl font-semibold leading-tight tracking-tight text-foreground sm:text-6xl md:text-7xl">
-          The journey is still unfolding.
+          The next chapter is taking shape.
         </Reveal>
         
         <Reveal as="p" className="mt-8 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground sm:text-xl md:text-2xl" delay={0.1}>
-          Preethi Group continues to look ahead — building on the relationships, experiences and foundations that have shaped us so far, while exploring what comes next.
-        </Reveal>
-        
-        <Reveal as="p" className="mt-6 max-w-2xl text-pretty text-lg font-medium leading-relaxed text-foreground sm:text-xl md:text-2xl" delay={0.2}>
-          The goal is not simply to grow, but to grow with purpose.
+          We continue to build upon our foundations while remaining open to new opportunities. As we look to the future, our focus remains on thoughtful expansion that honors the communities we serve.
         </Reveal>
       </div>
     </section>

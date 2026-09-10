@@ -72,7 +72,7 @@ export function Footer() {
             &copy; 2026 Preethi Group. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground">
-            Designed & Developed by Promocraft
+            Designed & Developed by <a href="https://promocraft.in" target="_blank" rel="noopener noreferrer"><b>Promocraft</b></a>
           </p>
         </div>
       </div>

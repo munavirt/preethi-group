@@ -4,8 +4,7 @@ import { AboutSection } from '@/components/about/about-section';
 import { BusinessesSection } from '@/components/businesses/businesses-section';
 import { PresenceSection } from '@/components/presence/presence-section';
 import { StorySection } from '@/components/story/story-section';
-import { LeadershipSection } from '@/components/leadership/leadership-section';
-import { TrustSection } from '@/components/trust/trust-section';
+import { ApproachSection } from '@/components/approach/approach-section';
 import { StatsSection } from '@/components/stats/stats-section';
 import { ContactSection } from '@/components/contact/contact-section';
 import { Footer } from '@/components/footer/footer';
@@ -20,8 +19,7 @@ export default function Home() {
         <BusinessesSection />
         <PresenceSection />
         <StorySection />
-        <LeadershipSection />
-        <TrustSection />
+        <ApproachSection />
         <StatsSection />
         <ContactSection />
       </main>

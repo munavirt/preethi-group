@@ -16,6 +16,7 @@ export function LocationMarker({ loc, point, index, isHovered, onHover, reduce }
     const coreR = 2.5;
     const ringR = 9;
     const ringOpacity = isHovered ? 0.3 : 0.15;
+    const mapUrl = loc.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.business + ' ' + loc.name)}`;
 
     return (
         <motion.g
@@ -32,29 +33,31 @@ export function LocationMarker({ loc, point, index, isHovered, onHover, reduce }
             tabIndex={0}
             aria-label={`${loc.name} — ${loc.business}`}
         >
-            {/* Invisible larger hit area */}
-            <circle cx={point.x} cy={point.y} r={18} fill="transparent" />
+            <a href={mapUrl} target="_blank" rel="noopener noreferrer" style={{ outline: 'none' }}>
+                {/* Invisible larger hit area */}
+                <circle cx={point.x} cy={point.y} r={18} fill="transparent" />
 
-            {/* Outer ring (animates once on entry) */}
-            <motion.circle
-                cx={point.x}
-                cy={point.y}
-                fill="none"
-                stroke="#E32626"
-                strokeWidth={0.5}
-                initial={reduce ? { r: ringR, opacity: ringOpacity } : { r: coreR, opacity: 0 }}
-                whileInView={reduce ? undefined : { r: ringR, opacity: ringOpacity }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 1.2, delay: 1.2 + index * 0.1, ease: 'easeOut' }}
-            />
+                {/* Outer ring (animates once on entry) */}
+                <motion.circle
+                    cx={point.x}
+                    cy={point.y}
+                    fill="none"
+                    stroke="#E32626"
+                    strokeWidth={0.5}
+                    initial={reduce ? { r: ringR, opacity: ringOpacity } : { r: coreR, opacity: 0 }}
+                    whileInView={reduce ? undefined : { r: ringR, opacity: ringOpacity }}
+                    viewport={{ once: true, margin: '-60px' }}
+                    transition={{ duration: 1.2, delay: 1.2 + index * 0.1, ease: 'easeOut' }}
+                />
 
-            {/* Core point */}
-            <circle
-                cx={point.x}
-                cy={point.y}
-                r={coreR}
-                fill="#E32626"
-            />
+                {/* Core point */}
+                <circle
+                    cx={point.x}
+                    cy={point.y}
+                    r={coreR}
+                    fill="#E32626"
+                />
+            </a>
         </motion.g>
     );
 }

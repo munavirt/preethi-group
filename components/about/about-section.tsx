@@ -12,8 +12,8 @@ export function AboutSection() {
     <section id="about" className="bg-background py-20 md:py-32">
       <div className="site-container">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-8">
-          {/* Image — left */}
-          <div className="order-1 lg:order-2 md:col-span-5">
+          {/* Desktop Image */}
+          <div className="hidden md:block md:order-1 lg:order-2 md:col-span-5">
             <Reveal className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-muted">
               <Image
                 src={ABOUT_IMAGE}
@@ -28,13 +28,26 @@ export function AboutSection() {
           {/* Text — right */}
           <div className="flex flex-col justify-center md:col-span-7 md:pl-8 lg:pl-16">
             <Reveal as="span" className="eyebrow mb-6">
-              The Group
+              About Us
             </Reveal>
 
             <Reveal as="h2" className="text-balance text-4xl font-bold leading-[1.08] tracking-[-0.02em] text-foreground sm:text-5xl lg:text-6xl">
               Built around people.
               <br />
               Growing with purpose.
+            </Reveal>
+
+            {/* Mobile Image */}
+            <Reveal className="mt-8 mb-2 block md:hidden">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-muted">
+                <Image
+                  src={ABOUT_IMAGE}
+                  alt="An artisan weaving traditional Indian textiles at a loom"
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                />
+              </div>
             </Reveal>
 
             <Reveal as="p" className="mt-8 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg" delay={0.05}>

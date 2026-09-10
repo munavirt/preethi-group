@@ -47,7 +47,7 @@ export function AboutHero() {
             className="mt-8 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground sm:text-xl md:mt-10"
             variants={reduce ? undefined : item}
           >
-            Preethi Group is a growing business group built around people, trusted relationships and a commitment to creating businesses that stand the test of time.
+            Preethi Group brings together businesses built on trust, strong relationships and a long-term commitment to the people they serve.
           </motion.p>
         </motion.div>
       </div>

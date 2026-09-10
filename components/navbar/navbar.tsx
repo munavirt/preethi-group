@@ -107,8 +107,8 @@ export function Navbar() {
       {/* Mobile menu */}
       <div
         className={cn(
-          'overflow-hidden border-t border-border bg-background transition-[max-height] duration-400 ease-out md:hidden',
-          open ? 'max-h-[480px]' : 'max-h-0'
+          'overflow-hidden bg-background transition-all duration-400 ease-out md:hidden',
+          open ? 'max-h-[480px] border-t border-border' : 'max-h-0 border-t-0'
         )}
       >
         <div className="site-container flex flex-col py-6">

@@ -26,15 +26,15 @@ const timelineSteps: TimelineStep[] = [
     number: '01',
     eyebrow: 'THE BEGINNING',
     heading: 'It started with a simple ambition.',
-    text: 'To build a business people could trust, serve customers well and create something that could grow with the community around it.',
-    text2: 'What began as a single chapter would eventually become the foundation for a wider group of businesses.',
+    text: 'Preethi Group started with a simple belief — that honest retail and genuine care for customers would always find a place to grow.',
   },
   {
     id: 'step-2',
     number: '02',
     eyebrow: 'THE FIRST CHAPTER',
-    heading: 'The first business established the foundation for everything that followed — introducing the values, relationships and experience that would shape the group.',
+    heading: 'The first business established the foundation for everything that followed.',
     text: '[YEAR — TO BE UPDATED]',
+    text2: 'What began as a single silk store became a destination for premium traditional fashion, built on craftsmanship and trust.',
     image: businesses[0].image,
     imageAlt: businesses[0].imageAlt,
   },
@@ -43,7 +43,7 @@ const timelineSteps: TimelineStep[] = [
     number: '03',
     eyebrow: 'GROWING THE BUSINESS',
     heading: 'One business became a foundation for growth.',
-    text: 'As experience grew, so did the opportunity to build something larger. New ideas, new relationships and new possibilities gradually expanded the group\'s journey.',
+    text: 'As customers grew, so did the ambition — reaching new towns and bringing quality fashion closer to more families.',
     image: businesses[1].image,
     imageAlt: businesses[1].imageAlt,
   },
@@ -58,9 +58,9 @@ const timelineSteps: TimelineStep[] = [
   {
     id: 'step-5',
     number: '05',
-    eyebrow: 'EXPANDING THE JOURNEY',
-    heading: 'From Kerala to beyond.',
-    text: 'As the group continued to evolve, its journey reached beyond its original roots, connecting the business with new places and communities.',
+    eyebrow: 'FROM KERALA TO BEYOND',
+    heading: 'Connecting with new places and communities.',
+    text: 'As the group continued to evolve, its journey reached beyond its original roots, expanding its presence.',
     visual: (
       <div className="flex items-center gap-6 mt-8 py-8 border-y border-border opacity-80">
         <span className="font-serif text-3xl md:text-4xl text-foreground tracking-widest uppercase">KERALA</span>
@@ -73,14 +73,14 @@ const timelineSteps: TimelineStep[] = [
     id: 'step-6',
     number: '06',
     eyebrow: 'TODAY',
-    heading: 'A growing group, still grounded in what matters.',
-    text: 'Today, Preethi Group brings together businesses with their own identities, experiences and customers — connected by the foundations that have shaped the group from the beginning.',
+    heading: 'A growing group, defined by its portfolio.',
+    text: 'Today, Preethi Group brings its businesses together under one identity, operating across multiple locations with a clear structure and a continuing focus on quality retail.',
   }
 ];
 
 export function StoryTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // Track scroll progress through the entire timeline container
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -94,10 +94,10 @@ export function StoryTimeline() {
   return (
     <section className="bg-background py-20 md:py-32 relative overflow-hidden">
       <div className="site-container relative" ref={containerRef}>
-        
+
         {/* The Continuous Vertical Line (Desktop: Center, Mobile: Left edge) */}
         <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[1px] bg-border transform md:-translate-x-1/2 z-0">
-          <motion.div 
+          <motion.div
             className="w-full bg-brand-red origin-top"
             style={{ scaleY, height: '100%' }}
           />
@@ -107,15 +107,15 @@ export function StoryTimeline() {
           {timelineSteps.map((step, index) => {
             const isEven = index % 2 === 0;
             return (
-              <TimelineItem 
-                key={step.id} 
-                step={step} 
-                isEven={isEven} 
+              <TimelineItem
+                key={step.id}
+                step={step}
+                isEven={isEven}
               />
             );
           })}
         </div>
-        
+
       </div>
     </section>
   );
@@ -137,20 +137,20 @@ function TimelineItem({ step, isEven }: { step: TimelineStep, isEven: boolean })
   const numberColor = useTransform(scrollYProgress, [0, 1], ["hsl(var(--muted-foreground))", "hsl(var(--brand-red))"]);
 
   return (
-    <div 
-      ref={itemRef} 
+    <div
+      ref={itemRef}
       className={`relative w-full flex flex-col md:flex-row py-16 md:py-32 ${isEven ? 'md:justify-start' : 'md:justify-end'}`}
     >
       {/* 
         On desktop, the content alternates left/right of the center line.
         On mobile, it sits entirely to the right of the left-aligned line.
       */}
-      <motion.div 
+      <motion.div
         style={{ opacity, y }}
         className="w-full pl-16 pr-0 md:px-12 md:w-1/2 flex flex-col relative z-10"
       >
         {/* Large Decorative Number */}
-        <motion.div 
+        <motion.div
           className="absolute -top-12 -left-4 md:-top-20 md:left-4 font-serif text-[120px] md:text-[200px] leading-none font-bold select-none pointer-events-none -z-10"
           style={{ opacity: numberOpacity, color: numberColor }}
         >
@@ -160,11 +160,11 @@ function TimelineItem({ step, isEven }: { step: TimelineStep, isEven: boolean })
         <span className="eyebrow mb-6 text-foreground tracking-widest uppercase">
           {step.eyebrow}
         </span>
-        
+
         <h2 className="font-serif text-balance text-3xl md:text-5xl font-semibold leading-[1.15] tracking-tight text-foreground mb-8">
           {step.heading}
         </h2>
-        
+
         <p className="max-w-md text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg mb-6">
           {step.text}
         </p>

@@ -2,8 +2,6 @@ import { Navbar } from '@/components/navbar/navbar';
 import { Footer } from '@/components/footer/footer';
 import { StoryHero } from '@/components/story-page/story-hero';
 import { StoryTimeline } from '@/components/story-page/story-timeline';
-import { StoryValues } from '@/components/story-page/story-values';
-import { StoryLookingAhead } from '@/components/story-page/story-looking-ahead';
 import { StoryCta } from '@/components/story-page/story-cta';
 
 export const metadata = {
@@ -18,8 +16,6 @@ export default function StoryPage() {
       <main>
         <StoryHero />
         <StoryTimeline />
-        <StoryValues />
-        <StoryLookingAhead />
         <StoryCta />
       </main>
       <Footer />

@@ -9,11 +9,11 @@ export function StoryCta() {
       <div className="site-container">
         <div className="flex flex-col items-center text-center">
           <Reveal as="h2" className="font-serif text-balance text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl mb-6">
-            Be part of what's next.
+            Explore what we've built.
           </Reveal>
           
           <Reveal as="p" className="max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg mb-12">
-            Explore the businesses behind the story or get in touch with Preethi Group.
+            Discover the businesses behind the story or connect with Preethi Group.
           </Reveal>
           
           <Reveal delay={0.1} className="flex flex-col sm:flex-row items-center gap-6">
@@ -26,7 +26,7 @@ export function StoryCta() {
             </a>
             
             <a
-              href="/#contact"
+              href="/contact"
               className="link-arrow group inline-flex items-center text-sm font-semibold tracking-widest text-foreground hover:text-brand-red uppercase"
             >
               <span className="border-b border-foreground pb-1 transition-colors group-hover:border-brand-red">

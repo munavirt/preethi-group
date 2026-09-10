@@ -16,7 +16,7 @@ export function SharedFoundation() {
         </Reveal>
         
         <Reveal as="p" className="max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg" delay={0.1}>
-          While each business serves its own purpose and audience, both are part of the wider Preethi Group — connected by the values and relationships that shape how we grow.
+          While our businesses serve different customers and purposes, they remain connected through the shared values and operational excellence of Preethi Group.
         </Reveal>
       </div>
     </section>

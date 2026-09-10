@@ -18,7 +18,7 @@ export function FinalCta() {
           
           <Reveal delay={0.1} className="flex flex-col sm:flex-row items-center gap-6">
             <a
-              href="/#contact"
+              href="/contact"
               className="group inline-flex h-14 items-center justify-center rounded-full bg-brand-red px-8 text-sm font-semibold tracking-widest text-white transition-colors hover:bg-brand-red/90"
             >
               GET IN TOUCH
@@ -26,7 +26,7 @@ export function FinalCta() {
             </a>
             
             <a
-              href="/#businesses"
+              href="/businesses"
               className="link-arrow group inline-flex items-center text-sm font-semibold tracking-widest text-foreground hover:text-brand-red"
             >
               <span className="border-b border-foreground pb-1 transition-colors group-hover:border-brand-red">

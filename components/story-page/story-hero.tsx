@@ -2,17 +2,16 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
-import { businesses } from '@/lib/data/businesses';
 
 export function StoryHero() {
   const reduce = useReducedMotion();
-  const heroImage = businesses[0].image; // Using Preethi Silks image as an atmospheric hero for now
+  const heroImage = '/images/story.webp';
 
   const container = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
   };
-  
+
   const item = {
     hidden: { opacity: 0, y: 15 },
     visible: {
@@ -50,10 +49,10 @@ export function StoryHero() {
             className="mt-8 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground sm:text-xl md:mt-10 mb-16 md:mb-24"
             variants={reduce ? undefined : item}
           >
-            Every growing group has a story. Ours is shaped by the businesses we've built, the people we've served and the relationships we've carried forward along the way.
+            The story of Preethi Group is shaped by the businesses we've built and the milestones that brought them together.
           </motion.p>
         </motion.div>
-        
+
         {/* Large Atmospheric Image */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -66,7 +65,7 @@ export function StoryHero() {
             alt="Atmospheric brand imagery"
             fill
             sizes="100vw"
-            className="object-cover"
+            className="object-cover object-top"
             priority
           />
           {/* Subtle gradient overlay to soften the image edges */}

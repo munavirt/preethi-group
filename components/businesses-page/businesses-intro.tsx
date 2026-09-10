@@ -19,7 +19,7 @@ export function BusinessesIntro() {
 
           <div className="flex flex-col justify-center lg:col-span-7">
             <Reveal as="p" className="max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Each business within Preethi Group has its own character, customers and way of creating value. Together, they represent the group's continuing journey of building strong and meaningful businesses.
+              Each business within Preethi Group has its own character, customers and way of creating value.
             </Reveal>
           </div>
         </div>
