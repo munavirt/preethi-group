@@ -12,8 +12,8 @@ export const footerBusinessLinks = [
 ];
 
 export const groupContact = {
-  generalEmail: '[EMAIL PLACEHOLDER]',
-  businessEmail: '[EMAIL / CONTACT PLACEHOLDER]',
-  phone: '[PHONE PLACEHOLDER]',
-  location: '[LOCATION PLACEHOLDER]',
+  generalEmail: 'info@preethisilks.in',
+  businessEmail: '1800 8914 199',
+  phone: '+91 9961 7978 88',
+  location: 'Preethi Corporate Tower, Calicut Airport, Kerala',
 };

@@ -29,6 +29,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { Preloader } from '@/components/preloader/preloader';
+
 export default function RootLayout({
   children,
 }: {
@@ -37,6 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${manrope.variable} ${cormorant.variable}`} data-scroll-behavior="smooth">
       <body className="relative bg-background text-foreground font-sans antialiased">
+        <Preloader />
         {children}
       </body>
     </html>
