@@ -5,7 +5,7 @@ export type Stat = {
 
 export const stats: Stat[] = [
   { value: '02', label: 'Businesses' },
-  { value: '02+', label: 'Locations' },
+  { value: '07+', label: 'Locations' },
   { value: 'Many', label: 'Years of trust' },
   { value: '100k+', label: 'Customers served' },
 ];
