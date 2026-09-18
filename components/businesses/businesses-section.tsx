@@ -36,7 +36,7 @@ export function BusinessesSection() {
                   className={textLeft ? 'md:col-span-5 md:order-1' : 'md:col-span-5 md:order-2 md:col-start-8 md:pl-8 lg:pl-12'}
                   delay={0.05}
                 >
-                  <StaggerItem as="span" className="block font-serif text-5xl font-medium text-brand-red md:text-6xl">
+                  <StaggerItem as="span" className="block font-mono text-5xl font-medium text-brand-red md:text-6xl">
                     {biz.number}
                   </StaggerItem>
                   <StaggerItem as="h3" className="mt-5 text-3xl font-bold tracking-[-0.01em] text-foreground sm:text-4xl">

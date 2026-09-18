@@ -151,7 +151,7 @@ function TimelineItem({ step, isEven }: { step: TimelineStep, isEven: boolean })
       >
         {/* Large Decorative Number */}
         <motion.div
-          className="absolute -top-12 -left-4 md:-top-20 md:left-4 font-serif text-[120px] md:text-[200px] leading-none font-bold select-none pointer-events-none -z-10"
+          className="absolute -top-12 -left-4 md:-top-20 md:left-4 font-mono text-[120px] md:text-[200px] leading-none font-bold select-none pointer-events-none -z-10"
           style={{ opacity: numberOpacity, color: numberColor }}
         >
           {step.number}

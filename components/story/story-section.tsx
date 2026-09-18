@@ -26,7 +26,7 @@ export function StorySection() {
               key={moment.number}
               className="flex flex-col bg-brand-cream p-8 lg:p-10"
             >
-              <span className="font-serif text-4xl font-medium text-brand-red">
+              <span className="font-mono text-4xl font-medium text-brand-red">
                 {moment.number}
               </span>
               <h3 className="mt-6 text-xl font-bold tracking-[-0.01em] text-foreground">
