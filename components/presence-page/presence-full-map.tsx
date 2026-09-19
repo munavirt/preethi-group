@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion, useInView } from 'framer-motion';
 import { buildMapBounds, type MapBounds } from '@/components/presence/geo-projection';
 import { LocationMarker } from '@/components/presence/location-marker';
 import { LocationLabel } from '@/components/presence/location-label';
@@ -32,6 +32,7 @@ export function PresenceFullMap() {
     const containerRef = useRef<HTMLDivElement>(null);
     const [hovered, setHovered] = useState<string | null>(null);
     const [mounted, setMounted] = useState(false);
+    const isInView = useInView(containerRef, { once: true, margin: "0px 0px -100px 0px" });
 
     useEffect(() => setMounted(true), []);
 
@@ -101,8 +102,7 @@ export function PresenceFullMap() {
     const renderUaeMapGroup = () => (
         <motion.g
             initial={reduce ? undefined : { opacity: 0 }}
-            whileInView={reduce ? undefined : { opacity: 1 }}
-            viewport={{ once: true, margin: '-60px' }}
+            animate={reduce ? undefined : (isInView ? { opacity: 1 } : { opacity: 0 })}
             transition={{ duration: 0.8, ease: 'easeOut' }}
             style={{ opacity: hovered && hovered !== 'UAE' ? 0.3 : 1, transition: 'opacity 0.3s ease' }}
         >
@@ -132,8 +132,7 @@ export function PresenceFullMap() {
     const renderMalabarMapGroup = () => (
         <motion.g
             initial={reduce ? undefined : { opacity: 0 }}
-            whileInView={reduce ? undefined : { opacity: 1 }}
-            viewport={{ once: true, margin: '-60px' }}
+            animate={reduce ? undefined : (isInView ? { opacity: 1 } : { opacity: 0 })}
             transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
             style={{ opacity: hovered && hovered === 'UAE' ? 0.4 : 1, transition: 'opacity 0.3s ease' }}
         >
@@ -183,7 +182,6 @@ export function PresenceFullMap() {
 
                 return (
                     <g key={loc.name}>
-                        {/* Leader line - show on hover to emphasize exact point */}
                         <motion.line
                             x1={point.x}
                             y1={point.y}
@@ -192,8 +190,7 @@ export function PresenceFullMap() {
                             stroke={isHovered ? 'hsl(var(--brand-red) / 0.5)' : 'hsl(0 0% 78%)'}
                             strokeWidth={isHovered ? 1 : 0.5}
                             initial={reduce ? undefined : { opacity: 0 }}
-                            whileInView={reduce ? undefined : { opacity: isHovered ? 1 : 0.5 }}
-                            viewport={{ once: true }}
+                            animate={reduce ? undefined : (isInView ? { opacity: isHovered ? 1 : 0.5 } : { opacity: 0 })}
                             transition={{ duration: 0.3 }}
                         />
                         <LocationMarker
@@ -203,6 +200,7 @@ export function PresenceFullMap() {
                             isHovered={isHovered || isUaeRoute}
                             onHover={(name) => setHovered(name)}
                             reduce={!!reduce}
+                            isInView={isInView}
                         />
                         <LocationLabel
                             loc={loc}
@@ -212,6 +210,7 @@ export function PresenceFullMap() {
                             index={idx}
                             isHovered={isHovered}
                             reduce={!!reduce}
+                            isInView={isInView}
                         />
                     </g>
                 );
@@ -241,8 +240,7 @@ export function PresenceFullMap() {
                                 strokeDasharray="3 6"
                                 strokeLinecap="round"
                                 initial={reduce ? undefined : { pathLength: 0, opacity: 0 }}
-                                whileInView={reduce ? undefined : { pathLength: 1, opacity: hovered === 'UAE' ? 0.8 : 0.3 }}
-                                viewport={{ once: true, margin: '-60px' }}
+                                animate={reduce ? undefined : (isInView ? { pathLength: 1, opacity: hovered === 'UAE' ? 0.8 : 0.3 } : { pathLength: 0, opacity: 0 })}
                                 transition={{ duration: 1.6, ease: 'easeInOut', delay: 1.0 }}
                                 style={{
                                     opacity: hovered === 'UAE' ? 0.8 : undefined,

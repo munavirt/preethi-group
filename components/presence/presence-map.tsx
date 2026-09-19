@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion, useInView } from 'framer-motion';
 import { buildMapBounds, type MapBounds } from './geo-projection';
 import { LocationMarker } from './location-marker';
 import { LocationLabel } from './location-label';
@@ -33,6 +33,7 @@ export function PresenceMap() {
     const containerRef = useRef<HTMLDivElement>(null);
     const [hovered, setHovered] = useState<string | null>(null);
     const [mounted, setMounted] = useState(false);
+    const isInView = useInView(containerRef, { once: true, margin: "0px 0px -100px 0px" });
 
     useEffect(() => setMounted(true), []);
 
@@ -124,8 +125,7 @@ export function PresenceMap() {
     const renderUaeMapGroup = () => (
         <motion.g
             initial={reduce ? undefined : { opacity: 0 }}
-            whileInView={reduce ? undefined : { opacity: 1 }}
-            viewport={{ once: true, margin: '-60px' }}
+            animate={reduce ? undefined : (isInView ? { opacity: 1 } : { opacity: 0 })}
             transition={{ duration: 0.8, ease: 'easeOut' }}
         >
             {/* UAE land fill */}
@@ -164,8 +164,7 @@ export function PresenceMap() {
     const renderMalabarMapGroup = () => (
         <motion.g
             initial={reduce ? undefined : { opacity: 0 }}
-            whileInView={reduce ? undefined : { opacity: 1 }}
-            viewport={{ once: true, margin: '-60px' }}
+            animate={reduce ? undefined : (isInView ? { opacity: 1 } : { opacity: 0 })}
             transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
         >
             {/* Malabar land fill */}
@@ -233,8 +232,7 @@ export function PresenceMap() {
                             stroke={isHovered ? 'hsl(var(--brand-red) / 0.5)' : 'hsl(0 0% 78%)'}
                             strokeWidth={isHovered ? 1 : 0.5}
                             initial={reduce ? undefined : { opacity: 0 }}
-                            whileInView={reduce ? undefined : { opacity: 1 }}
-                            viewport={{ once: true, margin: '-60px' }}
+                            animate={reduce ? undefined : (isInView ? { opacity: 1 } : { opacity: 0 })}
                             transition={{ duration: 0.4, delay: delayStart + idx * 0.1 }}
                         />
 
@@ -246,6 +244,7 @@ export function PresenceMap() {
                             isHovered={isHovered || isUaeRoute}
                             onHover={(name) => setHovered(name)}
                             reduce={!!reduce}
+                            isInView={isInView}
                         />
 
                         {/* Label */}
@@ -257,6 +256,7 @@ export function PresenceMap() {
                             index={idx}
                             isHovered={isHovered}
                             reduce={!!reduce}
+                            isInView={isInView}
                         />
                     </g>
                 );
@@ -291,11 +291,10 @@ export function PresenceMap() {
                             strokeWidth={0.3}
                             strokeLinecap="round"
                             initial={reduce ? undefined : { pathLength: 0, opacity: 0 }}
-                            whileInView={reduce ? undefined : {
+                            animate={reduce ? undefined : (isInView ? {
                                 pathLength: 1,
                                 opacity: 0.15,
-                            }}
-                            viewport={{ once: true, margin: '-60px' }}
+                            } : { pathLength: 0, opacity: 0 })}
                             transition={{ duration: 2.5, ease: 'easeInOut', delay: 0.6 }}
                             style={{
                                 transition: 'opacity 0.3s',

@@ -10,9 +10,10 @@ type Props = {
     isHovered: boolean;
     onHover: (name: string | null) => void;
     reduce: boolean;
+    isInView: boolean;
 };
 
-export function LocationMarker({ loc, point, index, isHovered, onHover, reduce }: Props) {
+export function LocationMarker({ loc, point, index, isHovered, onHover, reduce, isInView }: Props) {
     const coreR = 2.5;
     const ringR = 9;
     const ringOpacity = isHovered ? 0.3 : 0.15;
@@ -21,8 +22,7 @@ export function LocationMarker({ loc, point, index, isHovered, onHover, reduce }
     return (
         <motion.g
             initial={reduce ? undefined : { opacity: 0, scale: 0.6 }}
-            whileInView={reduce ? undefined : { opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: '-60px' }}
+            animate={reduce ? undefined : (isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.6 })}
             transition={{ duration: 0.8, delay: 1.0 + index * 0.1, ease: 'easeOut' }}
             onMouseEnter={() => onHover(loc.name)}
             onMouseLeave={() => onHover(null)}
@@ -45,8 +45,7 @@ export function LocationMarker({ loc, point, index, isHovered, onHover, reduce }
                     stroke="#E32626"
                     strokeWidth={0.5}
                     initial={reduce ? { r: ringR, opacity: ringOpacity } : { r: coreR, opacity: 0 }}
-                    whileInView={reduce ? undefined : { r: ringR, opacity: ringOpacity }}
-                    viewport={{ once: true, margin: '-60px' }}
+                    animate={reduce ? undefined : (isInView ? { r: ringR, opacity: ringOpacity } : { r: coreR, opacity: 0 })}
                     transition={{ duration: 1.2, delay: 1.2 + index * 0.1, ease: 'easeOut' }}
                 />
 

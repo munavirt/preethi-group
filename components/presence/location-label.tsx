@@ -11,16 +11,16 @@ type Props = {
     index: number;
     isHovered: boolean;
     reduce: boolean;
+    isInView: boolean;
 };
 
-export function LocationLabel({ loc, x, y, anchor, index, isHovered, reduce }: Props) {
+export function LocationLabel({ loc, x, y, anchor, index, isHovered, reduce, isInView }: Props) {
     const mapUrl = loc.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.business + ' ' + loc.name)}`;
 
     return (
         <motion.g
             initial={reduce ? undefined : { opacity: 0 }}
-            whileInView={reduce ? undefined : { opacity: 1 }}
-            viewport={{ once: true, margin: '-60px' }}
+            animate={reduce ? undefined : (isInView ? { opacity: 1 } : { opacity: 0 })}
             transition={{ duration: 1, delay: 1.3 + index * 0.1, ease: 'easeOut' }}
             style={{ pointerEvents: 'none' }}
         >

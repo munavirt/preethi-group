@@ -21,7 +21,7 @@ export function PresenceLocationList() {
 
             {/* Kerala section */}
             <div className="mb-12">
-              <Reveal as="span" className="eyebrow mb-8 inline-block text-brand-red">
+              <Reveal as="h3" className="eyebrow mb-8 text-brand-red">
                 KERALA
               </Reveal>
               <div className="flex flex-col border-t border-border">
@@ -54,8 +54,8 @@ export function PresenceLocationList() {
 
             {/* UAE section */}
             <div>
-              <Reveal as="span" className="eyebrow mb-8 inline-block text-brand-red">
-                UAE
+              <Reveal as="h3" className="eyebrow mb-8 text-brand-red">
+                INTERNATIONAL
               </Reveal>
               <div className="flex flex-col border-t border-border">
                 {preethiUae.map((loc, index) => {
@@ -94,7 +94,7 @@ export function PresenceLocationList() {
             </Reveal>
 
             <div>
-              <Reveal as="span" className="eyebrow mb-8 inline-block text-brand-red">
+              <Reveal as="h3" className="eyebrow mb-8 text-brand-red">
                 KERALA
               </Reveal>
               <div className="flex flex-col border-t border-border">
