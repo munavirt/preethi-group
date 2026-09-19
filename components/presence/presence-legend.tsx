@@ -8,13 +8,17 @@ export function PresenceLegend() {
         <div className="mt-12 flex flex-col items-start gap-8 md:flex-row md:items-center md:justify-between">
             <Reveal className="flex items-center gap-8" delay={0.1}>
                 <div className="flex items-center gap-2.5">
-                    <span className="block h-2.5 w-2.5 rounded-full bg-brand-red" />
+                    <div className="relative flex h-[18px] w-[18px] items-center justify-center rounded-full bg-brand-red/15">
+                        <span className="block h-[5px] w-[5px] rounded-full bg-brand-red" />
+                    </div>
                     <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                         Preethi Silks
                     </span>
                 </div>
                 <div className="flex items-center gap-2.5">
-                    <span className="block h-2.5 w-2.5 rounded-full border-2 border-brand-red" />
+                    <div className="relative flex h-[18px] w-[18px] items-center justify-center rounded-full bg-brand-red/15">
+                        <span className="block h-[5px] w-[5px] rounded-full border-[1.2px] border-brand-red" />
+                    </div>
                     <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                         Calicut Fashion Bazar
                     </span>

@@ -19,7 +19,7 @@ export function StoryCta() {
           <Reveal delay={0.1} className="flex flex-col sm:flex-row items-center gap-6">
             <a
               href="/businesses"
-              className="group inline-flex h-14 items-center justify-center bg-brand-red px-8 text-sm font-semibold tracking-widest text-white transition-colors hover:bg-brand-red/90 uppercase"
+              className="group inline-flex h-14 items-center justify-center rounded-lg bg-brand-red px-8 text-sm font-semibold tracking-widest text-white transition-colors hover:bg-brand-red/90 uppercase"
             >
               OUR BUSINESSES
               <ArrowUpRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

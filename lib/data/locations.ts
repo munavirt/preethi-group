@@ -12,13 +12,6 @@ export type PresenceLocation = {
 
 export const presenceLocations: PresenceLocation[] = [
   {
-    name: 'Kondotty',
-    business: 'Preethi Silks',
-    type: 'preethi',
-    region: 'malabar',
-    coordinates: [75.96, 11.20],
-  },
-  {
     name: 'Feroke',
     business: 'Preethi Silks',
     type: 'preethi',
@@ -26,18 +19,11 @@ export const presenceLocations: PresenceLocation[] = [
     coordinates: [75.83, 11.19],
   },
   {
-    name: 'Kuttiady',
+    name: 'Kondotty',
     business: 'Preethi Silks',
     type: 'preethi',
     region: 'malabar',
-    coordinates: [75.88, 11.60],
-  },
-  {
-    name: 'Palakkad',
-    business: 'Preethi Silks',
-    type: 'preethi',
-    region: 'malabar',
-    coordinates: [76.6548, 10.7867],
+    coordinates: [75.96, 11.20],
   },
   {
     name: 'Malappuram',
@@ -47,11 +33,18 @@ export const presenceLocations: PresenceLocation[] = [
     coordinates: [76.0711, 11.0510],
   },
   {
-    name: 'Calicut',
-    business: 'Calicut Fashion Bazar',
-    type: 'calicut-fashion-bazar',
+    name: 'Palakkad',
+    business: 'Preethi Silks',
+    type: 'preethi',
     region: 'malabar',
-    coordinates: [75.80, 11.35],
+    coordinates: [76.6548, 10.7867],
+  },
+  {
+    name: 'Kuttiady',
+    business: 'Preethi Silks',
+    type: 'preethi',
+    region: 'malabar',
+    coordinates: [75.88, 11.60],
   },
   {
     name: 'UAE',
@@ -59,5 +52,19 @@ export const presenceLocations: PresenceLocation[] = [
     type: 'preethi',
     region: 'uae',
     coordinates: [54.0, 24.0],
+  },
+  {
+    name: 'Calicut',
+    business: 'Calicut Fashion Bazar',
+    type: 'calicut-fashion-bazar',
+    region: 'malabar',
+    coordinates: [75.80, 11.35],
+  },
+  {
+    name: 'Chavakkad',
+    business: 'Calicut Fashion Bazar',
+    type: 'calicut-fashion-bazar',
+    region: 'malabar',
+    coordinates: [76.04, 10.58],
   },
 ];

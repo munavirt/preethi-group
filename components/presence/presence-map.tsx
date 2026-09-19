@@ -21,6 +21,7 @@ const labelPlacements: Record<string, LabelPlacement> = {
     Feroke: { dx: -18, dy: 14, anchor: 'end' },
     Malappuram: { dx: 18, dy: 6, anchor: 'start' },
     Palakkad: { dx: 18, dy: 6, anchor: 'start' },
+    Chavakkad: { dx: -18, dy: 6, anchor: 'end' },
     UAE: { dx: 0, dy: -24, anchor: 'middle' },
 };
 
@@ -87,201 +88,247 @@ export function PresenceMap() {
         return lines;
     }, [bounds]);
 
+    const uaePoints = points.filter(p => p.loc.region === 'uae');
+    const malabarPoints = points.filter(p => p.loc.region !== 'uae');
+
+    // Common defs shared between SVGs
+    const renderMapDefs = () => (
+        <defs>
+            {/* Very soft inner tonal shadow effect */}
+            <filter id="mapShadow" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#3a322c" floodOpacity="0.04" />
+            </filter>
+            
+            {/* Subtle warm stone/greige fill for Kerala */}
+            <linearGradient id="keralaFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="hsl(40 10% 86%)" />
+                <stop offset="100%" stopColor="hsl(40 8% 83%)" />
+            </linearGradient>
+
+            {/* Slightly lighter stone fill for UAE */}
+            <linearGradient id="uaeFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="hsl(40 12% 90%)" />
+                <stop offset="100%" stopColor="hsl(40 10% 86%)" />
+            </linearGradient>
+
+            {/* Clip paths for contour lines so they only show within land */}
+            <clipPath id="malabarClip">
+                <path d={bounds.malabarOutline} />
+            </clipPath>
+            <clipPath id="uaeClip">
+                <path d={bounds.uaeOutline} />
+            </clipPath>
+        </defs>
+    );
+
+    const renderUaeMapGroup = () => (
+        <motion.g
+            initial={reduce ? undefined : { opacity: 0 }}
+            whileInView={reduce ? undefined : { opacity: 1 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+            {/* UAE land fill */}
+            <path
+                d={bounds.uaeOutline}
+                fill="url(#uaeFill)"
+                stroke="hsl(40 10% 72%)"
+                strokeWidth={0.8}
+                strokeLinejoin="round"
+                filter="url(#mapShadow)"
+            />
+            {/* UAE faint contour texture */}
+            <g clipPath="url(#uaeClip)" opacity={0.5}>
+                {contourLines.slice(0, 8).map((d, i) => (
+                    <path
+                        key={`uae-c-${i}`}
+                        d={d}
+                        fill="none"
+                        stroke="hsl(40 10% 88%)"
+                        strokeWidth={0.5}
+                    />
+                ))}
+            </g>
+            {/* UAE coastline emphasis */}
+            <path
+                d={bounds.uaeOutline}
+                fill="none"
+                stroke="hsl(200 15% 80%)"
+                strokeWidth={0.6}
+                strokeLinejoin="round"
+                opacity={0.6}
+            />
+        </motion.g>
+    );
+
+    const renderMalabarMapGroup = () => (
+        <motion.g
+            initial={reduce ? undefined : { opacity: 0 }}
+            whileInView={reduce ? undefined : { opacity: 1 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+        >
+            {/* Malabar land fill */}
+            <path
+                d={bounds.malabarOutline}
+                fill="url(#keralaFill)"
+                stroke="hsl(40 10% 72%)"
+                strokeWidth={1}
+                strokeLinejoin="round"
+                filter="url(#mapShadow)"
+            />
+            {/* Malabar faint contour texture */}
+            <g clipPath="url(#malabarClip)" opacity={0.5}>
+                {contourLines.map((d, i) => (
+                    <path
+                        key={`mal-c-${i}`}
+                        d={d}
+                        fill="none"
+                        stroke="hsl(40 10% 88%)"
+                        strokeWidth={0.5}
+                    />
+                ))}
+            </g>
+            {/* District boundaries */}
+            {bounds.malabarDistricts.map((dist, i) => (
+                <path
+                    key={dist.name}
+                    d={dist.d}
+                    fill="none"
+                    stroke="hsl(40 10% 72%)"
+                    strokeWidth={0.25}
+                    strokeLinejoin="round"
+                    opacity={0.3}
+                />
+            ))}
+            {/* Coastline emphasis */}
+            <path
+                d={bounds.malabarOutline}
+                fill="none"
+                stroke="hsl(200 15% 78%)"
+                strokeWidth={0.7}
+                strokeLinejoin="round"
+                opacity={0.5}
+            />
+        </motion.g>
+    );
+
+    const renderMarkersGroup = (pointsList: typeof points, delayStart = 1.2) => (
+        <>
+            {mounted && pointsList.map(({ loc, point }, idx) => {
+                const placement = labelPlacements[loc.name] ?? { dx: 16, dy: -4, anchor: 'start' as const };
+                const isHovered = hovered === loc.name;
+                const labelX = point.x + placement.dx;
+                const labelY = point.y + placement.dy;
+                const isUaeRoute = hovered === 'UAE' && loc.region === 'uae';
+
+                return (
+                    <g key={loc.name}>
+                        {/* Leader line */}
+                        <motion.line
+                            x1={point.x}
+                            y1={point.y}
+                            x2={labelX}
+                            y2={labelY}
+                            stroke={isHovered ? 'hsl(var(--brand-red) / 0.5)' : 'hsl(0 0% 78%)'}
+                            strokeWidth={isHovered ? 1 : 0.5}
+                            initial={reduce ? undefined : { opacity: 0 }}
+                            whileInView={reduce ? undefined : { opacity: 1 }}
+                            viewport={{ once: true, margin: '-60px' }}
+                            transition={{ duration: 0.4, delay: delayStart + idx * 0.1 }}
+                        />
+
+                        {/* Marker */}
+                        <LocationMarker
+                            loc={loc}
+                            point={point}
+                            index={idx}
+                            isHovered={isHovered || isUaeRoute}
+                            onHover={(name) => setHovered(name)}
+                            reduce={!!reduce}
+                        />
+
+                        {/* Label */}
+                        <LocationLabel
+                            loc={loc}
+                            x={labelX}
+                            y={labelY}
+                            anchor={placement.anchor}
+                            index={idx}
+                            isHovered={isHovered}
+                            reduce={!!reduce}
+                        />
+                    </g>
+                );
+            })}
+        </>
+    );
+
     return (
         <div ref={containerRef} className="relative w-full">
-            <svg
-                viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-                className="w-full"
-                style={{ display: 'block' }}
-                role="img"
-                aria-label="Map showing Preethi Group locations across the Malabar region of Kerala and the UAE"
-            >
-                <defs>
-                    {/* Very soft inner tonal shadow effect */}
-                    <filter id="mapShadow" x="-10%" y="-10%" width="120%" height="120%">
-                        <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#3a322c" floodOpacity="0.04" />
-                    </filter>
-                    
-                    {/* Subtle warm stone/greige fill for Kerala */}
-                    <linearGradient id="keralaFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="hsl(40 10% 86%)" />
-                        <stop offset="100%" stopColor="hsl(40 8% 83%)" />
-                    </linearGradient>
-
-                    {/* Slightly lighter stone fill for UAE */}
-                    <linearGradient id="uaeFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="hsl(40 12% 90%)" />
-                        <stop offset="100%" stopColor="hsl(40 10% 86%)" />
-                    </linearGradient>
-
-                    {/* Clip paths for contour lines so they only show within land */}
-                    <clipPath id="malabarClip">
-                        <path d={bounds.malabarOutline} />
-                    </clipPath>
-                    <clipPath id="uaeClip">
-                        <path d={bounds.uaeOutline} />
-                    </clipPath>
-                </defs>
-
-                {/* ===== UAE (LEFT) ===== */}
-                <motion.g
-                    initial={reduce ? undefined : { opacity: 0 }}
-                    whileInView={reduce ? undefined : { opacity: 1 }}
-                    viewport={{ once: true, margin: '-60px' }}
-                    transition={{ duration: 0.8, ease: 'easeOut' }}
-                >
-                    {/* UAE land fill */}
-                    <path
-                        d={bounds.uaeOutline}
-                        fill="url(#uaeFill)"
-                        stroke="hsl(40 10% 72%)"
-                        strokeWidth={0.8}
-                        strokeLinejoin="round"
-                        filter="url(#mapShadow)"
-                    />
-                    {/* UAE faint contour texture */}
-                    <g clipPath="url(#uaeClip)" opacity={0.5}>
-                        {contourLines.slice(0, 8).map((d, i) => (
-                            <path
-                                key={`uae-c-${i}`}
-                                d={d}
-                                fill="none"
-                                stroke="hsl(40 10% 88%)"
-                                strokeWidth={0.5}
-                            />
-                        ))}
-                    </g>
-                    {/* UAE coastline emphasis */}
-                    <path
-                        d={bounds.uaeOutline}
-                        fill="none"
-                        stroke="hsl(200 15% 80%)"
-                        strokeWidth={0.6}
-                        strokeLinejoin="round"
-                        opacity={0.6}
-                    />
-                </motion.g>
-
-                {/* ===== MALABAR (RIGHT) ===== */}
-                <motion.g
-                    initial={reduce ? undefined : { opacity: 0 }}
-                    whileInView={reduce ? undefined : { opacity: 1 }}
-                    viewport={{ once: true, margin: '-60px' }}
-                    transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
-                >
-                    {/* Malabar land fill */}
-                    <path
-                        d={bounds.malabarOutline}
-                        fill="url(#keralaFill)"
-                        stroke="hsl(40 10% 72%)"
-                        strokeWidth={1}
-                        strokeLinejoin="round"
-                        filter="url(#mapShadow)"
-                    />
-                    {/* Malabar faint contour texture */}
-                    <g clipPath="url(#malabarClip)" opacity={0.5}>
-                        {contourLines.map((d, i) => (
-                            <path
-                                key={`mal-c-${i}`}
-                                d={d}
-                                fill="none"
-                                stroke="hsl(40 10% 88%)"
-                                strokeWidth={0.5}
-                            />
-                        ))}
-                    </g>
-                    {/* District boundaries */}
-                    {bounds.malabarDistricts.map((dist, i) => (
-                        <path
-                            key={dist.name}
-                            d={dist.d}
-                            fill="none"
-                            stroke="hsl(40 10% 72%)"
-                            strokeWidth={0.25}
-                            strokeLinejoin="round"
-                            opacity={0.3}
-                        />
-                    ))}
-                    {/* Coastline emphasis */}
-                    <path
-                        d={bounds.malabarOutline}
-                        fill="none"
-                        stroke="hsl(200 15% 78%)"
-                        strokeWidth={0.7}
-                        strokeLinejoin="round"
-                        opacity={0.5}
-                    />
-                </motion.g>
-
-                {/* ===== UAE → MALABAR CONNECTION ROUTE ===== */}
-                {connectionPath && (
-                    <motion.path
-                        d={connectionPath}
-                        fill="none"
-                        stroke="#E32626"
-                        strokeWidth={0.3}
-                        strokeLinecap="round"
-                        initial={reduce ? undefined : { pathLength: 0, opacity: 0 }}
-                        whileInView={reduce ? undefined : {
-                            pathLength: 1,
-                            opacity: 0.15,
-                        }}
-                        viewport={{ once: true, margin: '-60px' }}
-                        transition={{ duration: 2.5, ease: 'easeInOut', delay: 0.6 }}
-                        style={{
-                            transition: 'opacity 0.3s',
-                        }}
-                    />
-                )}
-
-                {/* ===== LOCATION MARKERS + LABELS ===== */}
-                {mounted && points.map(({ loc, point }, idx) => {
-                    const placement = labelPlacements[loc.name] ?? { dx: 16, dy: -4, anchor: 'start' as const };
-                    const isHovered = hovered === loc.name;
-                    const labelX = point.x + placement.dx;
-                    const labelY = point.y + placement.dy;
-                    const isUaeRoute = hovered === 'UAE' && loc.region === 'uae';
-
-                    return (
-                        <g key={loc.name}>
-                            {/* Leader line */}
-                            <motion.line
-                                x1={point.x}
-                                y1={point.y}
-                                x2={labelX}
-                                y2={labelY}
-                                stroke={isHovered ? 'hsl(var(--brand-red) / 0.5)' : 'hsl(0 0% 78%)'}
-                                strokeWidth={isHovered ? 1 : 0.5}
-                                initial={reduce ? undefined : { opacity: 0 }}
-                                whileInView={reduce ? undefined : { opacity: 1 }}
-                                viewport={{ once: true, margin: '-60px' }}
-                                transition={{ duration: 0.4, delay: 1.2 + idx * 0.1 }}
-                            />
-
-                            {/* Marker */}
-                            <LocationMarker
-                                loc={loc}
-                                point={point}
-                                index={idx}
-                                isHovered={isHovered || isUaeRoute}
-                                onHover={(name) => setHovered(name)}
-                                reduce={!!reduce}
-                            />
-
-                            {/* Label */}
-                            <LocationLabel
-                                loc={loc}
-                                x={labelX}
-                                y={labelY}
-                                anchor={placement.anchor}
-                                index={idx}
-                                isHovered={isHovered}
-                                reduce={!!reduce}
-                            />
-                        </g>
-                    );
-                })}
+            <svg style={{ position: 'absolute', width: 0, height: 0 }} aria-hidden="true">
+                {renderMapDefs()}
             </svg>
+
+            {/* Desktop View: Combined Map */}
+            <div className="hidden md:block">
+                <svg
+                    viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
+                    className="w-full"
+                    style={{ display: 'block' }}
+                    role="img"
+                    aria-label="Map showing Preethi Group locations across the Malabar region of Kerala and the UAE"
+                >
+                    {renderUaeMapGroup()}
+                    {renderMalabarMapGroup()}
+
+                    {/* ===== UAE → MALABAR CONNECTION ROUTE ===== */}
+                    {connectionPath && (
+                        <motion.path
+                            d={connectionPath}
+                            fill="none"
+                            stroke="#E32626"
+                            strokeWidth={0.3}
+                            strokeLinecap="round"
+                            initial={reduce ? undefined : { pathLength: 0, opacity: 0 }}
+                            whileInView={reduce ? undefined : {
+                                pathLength: 1,
+                                opacity: 0.15,
+                            }}
+                            viewport={{ once: true, margin: '-60px' }}
+                            transition={{ duration: 2.5, ease: 'easeInOut', delay: 0.6 }}
+                            style={{
+                                transition: 'opacity 0.3s',
+                            }}
+                        />
+                    )}
+
+                    {renderMarkersGroup(points)}
+                </svg>
+            </div>
+
+            {/* Mobile View: Stacked Maps */}
+            <div className="block md:hidden flex flex-col gap-12 mt-8">
+                {/* KERALA MOBILE MAP */}
+                <div className="relative w-full">
+                    <span className="eyebrow mb-4 block text-center">KERALA</span>
+                    {/* Adjust viewBox to frame just the Malabar area bounds */}
+                    <svg viewBox={`${bounds.malabarBounds.x - 40} ${bounds.malabarBounds.y - 40} ${bounds.malabarBounds.width + 80} ${bounds.malabarBounds.height + 80}`} className="w-full" style={{ display: 'block' }}>
+                        {renderMalabarMapGroup()}
+                        {renderMarkersGroup(malabarPoints, 0)}
+                    </svg>
+                </div>
+
+                {/* UAE MOBILE MAP */}
+                <div className="relative w-full">
+                    <span className="eyebrow mb-4 block text-center">UNITED ARAB EMIRATES</span>
+                    {/* Adjust viewBox to frame just the UAE bounds */}
+                    <svg viewBox={`${bounds.uaeBounds.x - 40} ${bounds.uaeBounds.y - 40} ${bounds.uaeBounds.width + 80} ${bounds.uaeBounds.height + 80}`} className="w-full" style={{ display: 'block' }}>
+                        {renderUaeMapGroup()}
+                        {renderMarkersGroup(uaePoints, 0)}
+                    </svg>
+                </div>
+            </div>
         </div>
     );
 }

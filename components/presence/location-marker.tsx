@@ -51,12 +51,23 @@ export function LocationMarker({ loc, point, index, isHovered, onHover, reduce }
                 />
 
                 {/* Core point */}
-                <circle
-                    cx={point.x}
-                    cy={point.y}
-                    r={coreR}
-                    fill="#E32626"
-                />
+                {loc.type === 'calicut-fashion-bazar' ? (
+                    <circle
+                        cx={point.x}
+                        cy={point.y}
+                        r={2}
+                        fill="transparent"
+                        stroke="#E32626"
+                        strokeWidth={1.2}
+                    />
+                ) : (
+                    <circle
+                        cx={point.x}
+                        cy={point.y}
+                        r={coreR}
+                        fill="#E32626"
+                    />
+                )}
             </a>
         </motion.g>
     );

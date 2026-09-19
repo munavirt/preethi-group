@@ -20,6 +20,7 @@ const labelPlacements: Record<string, LabelPlacement> = {
     Feroke: { dx: -24, dy: 6, anchor: 'end' },
     Malappuram: { dx: 16, dy: -2, anchor: 'start' },
     Palakkad: { dx: 16, dy: 6, anchor: 'start' },
+    Chavakkad: { dx: -18, dy: 6, anchor: 'end' },
     UAE: { dx: 0, dy: -22, anchor: 'middle' },
 };
 
@@ -60,11 +61,11 @@ export function PresenceFullMap() {
         const y1 = uaePoint.point.y;
         const x2 = malabarPoint.point.x;
         const y2 = malabarPoint.point.y;
-        const cx1 = x1 + (x2 - x1) * 0.35;
-        const cy1 = y1 - 40;
-        const cx2 = x1 + (x2 - x1) * 0.65;
-        const cy2 = y2 - 50;
-        return `M ${x1} ${y1} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2}`;
+        const cx1 = (x1 + (x2 - x1) * 0.35).toFixed(2);
+        const cy1 = (y1 - 40).toFixed(2);
+        const cx2 = (x1 + (x2 - x1) * 0.65).toFixed(2);
+        const cy2 = (y2 - 50).toFixed(2);
+        return `M ${x1.toFixed(2)} ${y1.toFixed(2)} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2.toFixed(2)} ${y2.toFixed(2)}`;
     }, [points]);
 
     const contourLines = useMemo(() => {
@@ -76,13 +77,13 @@ export function PresenceFullMap() {
         for (let y = mb.y - 10; y < mb.y + mb.height + 10; y += step) {
             const wave = Math.sin(y * 0.04) * 6;
             const midX = (startX + endX) / 2;
-            lines.push(`M ${startX} ${y} Q ${midX} ${y + wave} ${endX} ${y}`);
+            lines.push(`M ${startX.toFixed(2)} ${y.toFixed(2)} Q ${midX.toFixed(2)} ${(y + wave).toFixed(2)} ${endX.toFixed(2)} ${y.toFixed(2)}`);
         }
         return lines;
     }, [bounds]);
 
     // Common defs shared between SVGs
-    const MapDefs = () => (
+    const renderMapDefs = () => (
         <defs>
             <linearGradient id="landFill" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="hsl(40 25% 96%)" />
@@ -97,7 +98,7 @@ export function PresenceFullMap() {
         </defs>
     );
 
-    const UaeMapGroup = () => (
+    const renderUaeMapGroup = () => (
         <motion.g
             initial={reduce ? undefined : { opacity: 0 }}
             whileInView={reduce ? undefined : { opacity: 1 }}
@@ -128,7 +129,7 @@ export function PresenceFullMap() {
         </motion.g>
     );
 
-    const MalabarMapGroup = () => (
+    const renderMalabarMapGroup = () => (
         <motion.g
             initial={reduce ? undefined : { opacity: 0 }}
             whileInView={reduce ? undefined : { opacity: 1 }}
@@ -171,7 +172,7 @@ export function PresenceFullMap() {
         </motion.g>
     );
 
-    const MarkersGroup = ({ pointsList, delayStart = 1.2 }: { pointsList: typeof points, delayStart?: number }) => (
+    const renderMarkersGroup = (pointsList: typeof points, delayStart = 1.2) => (
         <>
             {mounted && pointsList.map(({ loc, point }, idx) => {
                 const placement = labelPlacements[loc.name] ?? { dx: 16, dy: -4, anchor: 'start' };
@@ -221,13 +222,15 @@ export function PresenceFullMap() {
     return (
         <section className="bg-background py-16 md:py-24 border-b border-border overflow-hidden">
             <div className="site-container relative w-full" ref={containerRef}>
+                <svg style={{ position: 'absolute', width: 0, height: 0 }} aria-hidden="true">
+                    {renderMapDefs()}
+                </svg>
 
                 {/* Desktop View: Combined Map */}
                 <div className="hidden md:block">
                     <svg viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`} className="w-full" style={{ display: 'block' }}>
-                        <MapDefs />
-                        <UaeMapGroup />
-                        <MalabarMapGroup />
+                        {renderUaeMapGroup()}
+                        {renderMalabarMapGroup()}
 
                         {connectionPath && (
                             <motion.path
@@ -247,7 +250,7 @@ export function PresenceFullMap() {
                                 }}
                             />
                         )}
-                        <MarkersGroup pointsList={points} />
+                        {renderMarkersGroup(points)}
                     </svg>
                 </div>
 
@@ -258,9 +261,8 @@ export function PresenceFullMap() {
                         <span className="eyebrow mb-4 block text-center">KERALA</span>
                         {/* Adjust viewBox to frame just the Malabar area bounds */}
                         <svg viewBox={`${bounds.malabarBounds.x - 40} ${bounds.malabarBounds.y - 40} ${bounds.malabarBounds.width + 80} ${bounds.malabarBounds.height + 80}`} className="w-full" style={{ display: 'block' }}>
-                            <MapDefs />
-                            <MalabarMapGroup />
-                            <MarkersGroup pointsList={malabarPoints} delayStart={0} />
+                            {renderMalabarMapGroup()}
+                            {renderMarkersGroup(malabarPoints, 0)}
                         </svg>
                     </div>
 
@@ -269,9 +271,8 @@ export function PresenceFullMap() {
                         <span className="eyebrow mb-4 block text-center">UNITED ARAB EMIRATES</span>
                         {/* Adjust viewBox to frame just the UAE bounds */}
                         <svg viewBox={`${bounds.uaeBounds.x - 40} ${bounds.uaeBounds.y - 40} ${bounds.uaeBounds.width + 80} ${bounds.uaeBounds.height + 80}`} className="w-full" style={{ display: 'block' }}>
-                            <MapDefs />
-                            <UaeMapGroup />
-                            <MarkersGroup pointsList={uaePoints} delayStart={0} />
+                            {renderUaeMapGroup()}
+                            {renderMarkersGroup(uaePoints, 0)}
                         </svg>
                     </div>
                 </div>

@@ -33,7 +33,7 @@ const timelineSteps: TimelineStep[] = [
     number: '02',
     eyebrow: 'THE FIRST CHAPTER',
     heading: 'The first business established the foundation for everything that followed.',
-    text: '[YEAR — TO BE UPDATED]',
+    text: 'Founded on 2012',
     text2: 'What began as a single silk store became a destination for premium traditional fashion, built on craftsmanship and trust.',
     image: businesses[0].image,
     imageAlt: businesses[0].imageAlt,
