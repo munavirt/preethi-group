@@ -18,24 +18,47 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.preethigroup.in'),
+
   title: 'Preethi Group | Building Businesses, Growing Together',
+
   description:
     'Preethi Group is a growing collection of businesses rooted in fashion and retail across Kerala — including Preethi Silks and Calicut Fashion Bazar.',
+
+  alternates: {
+    canonical: '/',
+  },
+
   openGraph: {
     title: 'Preethi Group | Building Businesses, Growing Together',
     description:
       'A growing group of businesses built around fashion, retail and the people we serve.',
+    url: 'https://www.preethigroup.in/',
+    siteName: 'Preethi Group',
     type: 'website',
   },
+
   icons: {
     icon: [
-      { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      {
+        url: '/favicon/favicon-32x32.png',
+        sizes: '32x32',
+        type: 'image/png',
+      },
+      {
+        url: '/favicon/favicon-16x16.png',
+        sizes: '16x16',
+        type: 'image/png',
+      },
     ],
     apple: [
-      { url: '/favicon/apple-touch-icon.png', sizes: '180x180' },
+      {
+        url: '/favicon/apple-touch-icon.png',
+        sizes: '180x180',
+      },
     ],
   },
+
   manifest: '/favicon/site.webmanifest',
 };
 

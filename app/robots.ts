@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
             userAgent: "*",
             allow: "/",
         },
-        sitemap: "https://preethigroup.in/sitemap.xml",
+        sitemap: "https://www.preethigroup.in/sitemap.xml",
     };
 }
