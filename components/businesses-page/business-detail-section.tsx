@@ -21,13 +21,23 @@ export function BusinessDetailSection({ business, index }: BusinessDetailSection
       <div className="site-container">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-24 items-center">
 
-          {/* Content */}
-          <div className={`flex flex-col justify-center lg:col-span-5 ${index % 2 === 1 ? 'order-2 lg:order-2' : 'order-2 lg:order-1'}`}>
+          {/* Mobile Header (Hidden on Desktop) */}
+          <div className="flex flex-col lg:hidden order-1">
             <Reveal as="span" className="eyebrow mb-6 inline-block text-brand-red uppercase">
               {business.number} / {business.name}
             </Reveal>
+            <Reveal as="h2" className="font-serif text-5xl font-semibold tracking-tight text-foreground sm:text-6xl">
+              {business.name}
+            </Reveal>
+          </div>
 
-            <Reveal as="h2" className="font-serif mb-6 text-5xl font-semibold tracking-tight text-foreground sm:text-6xl">
+          {/* Content */}
+          <div className={`flex flex-col justify-center lg:col-span-5 ${index % 2 === 1 ? 'order-3 lg:order-2' : 'order-3 lg:order-1'}`}>
+            <Reveal as="span" className="hidden lg:inline-block eyebrow mb-6 text-brand-red uppercase">
+              {business.number} / {business.name}
+            </Reveal>
+
+            <Reveal as="h2" className="hidden lg:block font-serif mb-6 text-5xl font-semibold tracking-tight text-foreground sm:text-6xl">
               {business.name}
             </Reveal>
 
@@ -49,6 +59,12 @@ export function BusinessDetailSection({ business, index }: BusinessDetailSection
                 <span className="block text-[11px] font-bold uppercase tracking-widest text-muted-foreground mb-1">Category</span>
                 <span className="block text-sm font-medium text-foreground">{business.category}</span>
               </div>
+              {business.location && (
+                <div>
+                  <span className="block text-[11px] font-bold uppercase tracking-widest text-muted-foreground mb-1">Location</span>
+                  <span className="block text-sm font-medium text-foreground">{business.location}</span>
+                </div>
+              )}
             </Reveal>
 
             <Reveal delay={0.25}>
@@ -62,13 +78,14 @@ export function BusinessDetailSection({ business, index }: BusinessDetailSection
           </div>
 
           {/* Image */}
-          <div className={`lg:col-span-7 w-full ${index % 2 === 1 ? 'order-1 lg:order-1' : 'order-1 lg:order-2'}`}>
+          <div className={`lg:col-span-7 w-full ${index % 2 === 1 ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
             <Reveal className="relative w-full overflow-hidden rounded-2xl bg-muted aspect-[4/5]">
               {business.image ? (
                 <Image
                   src={business.image}
                   alt={business.imageAlt}
                   fill
+                  priority={index === 0}
                   sizes="(max-width: 1024px) 100vw, 60vw"
                   className="object-cover transition-transform duration-1000 hover:scale-105"
                 />

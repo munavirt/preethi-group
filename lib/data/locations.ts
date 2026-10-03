@@ -1,4 +1,4 @@
-export type LocationType = 'preethi' | 'calicut-fashion-bazar';
+export type LocationType = 'preethi' | 'calicut-fashion-bazar' | 'p-decor';
 export type LocationRegion = 'malabar' | 'uae';
 
 export type PresenceLocation = {
@@ -66,5 +66,12 @@ export const presenceLocations: PresenceLocation[] = [
     type: 'calicut-fashion-bazar',
     region: 'malabar',
     coordinates: [76.04, 10.58],
+  },
+  {
+    name: 'Malappuram',
+    business: 'P Decor',
+    type: 'p-decor',
+    region: 'malabar',
+    coordinates: [76.0711, 11.0510],
   },
 ];

@@ -15,7 +15,7 @@ export function BusinessesSection() {
             Our Businesses
           </Reveal>
           <Reveal as="h2" className="max-w-3xl text-balance text-4xl font-bold leading-[1.08] tracking-[-0.02em] text-foreground sm:text-5xl lg:text-6xl">
-            Two businesses.
+            Three businesses.
             <br />
             One growing group.
           </Reveal>
@@ -53,6 +53,7 @@ export function BusinessesSection() {
                         src={biz.image}
                         alt={biz.imageAlt}
                         fill
+                        priority={i === 0}
                         sizes="100vw"
                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                       />
@@ -81,6 +82,7 @@ export function BusinessesSection() {
                       src={biz.image}
                       alt={biz.imageAlt}
                       fill
+                      priority={i === 0}
                       sizes="(max-width: 768px) 100vw, 55vw"
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                     />

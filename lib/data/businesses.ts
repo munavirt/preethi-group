@@ -8,6 +8,7 @@ export type Business = {
   href: string;
   shortIntro: string;
   category: string;
+  location?: string;
 };
 
 export const businesses: Business[] = [
@@ -36,5 +37,19 @@ export const businesses: Business[] = [
     href: '#calicut-fashion-bazar',
     shortIntro: 'A retail business serving customers with a broad fashion offering and a focus on everyday shopping experiences.',
     category: 'Fashion Retail',
+  },
+  {
+    number: '03',
+    name: 'P Decor',
+    tagline: 'Your World of Home Décor',
+    description:
+      'A new world of beautiful home décor, bringing together elegant accents, statement pieces and carefully curated collections to add character, style and warmth to every space.',
+    image: '/p-decor.jpg',
+    imageAlt:
+      'Premium, warm, modern, elegant, and sophisticated home decor retail brand image showing elegant accents and statement pieces',
+    href: '#p-decor',
+    shortIntro: 'A new world of home décor, designed to make every space feel special.',
+    category: 'Home Décor',
+    location: 'Malappuram, Kerala',
   },
 ];

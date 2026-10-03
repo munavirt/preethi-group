@@ -181,7 +181,7 @@ export function PresenceFullMap() {
                 const isUaeRoute = hovered === 'UAE' && loc.region === 'uae';
 
                 return (
-                    <g key={loc.name}>
+                    <g key={`${loc.business}-${loc.name}`}>
                         <motion.line
                             x1={point.x}
                             y1={point.y}
