@@ -2,10 +2,9 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, ArrowDown } from 'lucide-react';
-import { Lobster } from 'next/font/google';
+import { Lora } from 'next/font/google';
 
-const lobster = Lobster({
-  weight: '400',
+const lora = Lora({
   subsets: ['latin'],
 });
 
@@ -54,12 +53,12 @@ export function Hero() {
 
 
             <motion.h1
-              className={`text-balance text-4xl font-semibold leading-[1.05] text-white sm:text-5xl md:text-7xl lg:text-[80px] ${lobster.className}`}
+              className={`text-balance text-4xl font-semibold leading-[1.05] text-white sm:text-5xl md:text-7xl lg:text-[80px] ${lora.className}`}
               variants={reduce ? undefined : item}
             >
-              Growing businesses.
+              Growing Businesses.
               <br />
-              Creating lasting connections.
+              Creating Lasting Connections.
             </motion.h1>
 
             <motion.p

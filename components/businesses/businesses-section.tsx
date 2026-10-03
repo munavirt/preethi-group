@@ -64,7 +64,7 @@ export function BusinessesSection() {
                     {biz.description}
                   </StaggerItem>
                   <StaggerItem className="mt-8">
-                    <a href={biz.href} className="link-arrow group text-foreground hover:text-brand-red">
+                    <a href={`/businesses${biz.href}`} className="link-arrow group text-foreground hover:text-brand-red">
                       <span className="border-b border-foreground pb-1 transition-colors group-hover:border-brand-red">
                         Explore {biz.name}
                       </span>

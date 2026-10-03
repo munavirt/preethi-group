@@ -222,7 +222,7 @@ export function PresenceMap() {
                 const isUaeRoute = hovered === 'UAE' && loc.region === 'uae';
 
                 return (
-                    <g key={loc.name}>
+                    <g key={`${loc.business}-${loc.name}`}>
                         {/* Leader line */}
                         <motion.line
                             x1={point.x}
